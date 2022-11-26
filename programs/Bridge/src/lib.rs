@@ -7,7 +7,7 @@ use gcred_token::cpi::accounts::{ ProxyMintTo as ProxyMintToGCRED, ProxyBurn as 
 
 use exo_token::program::ExoToken;
 use gcred_token::program::GcredToken;
-declare_id!("7hJpqa8oZDrqxDF6heibKkDLUVWN6ivRSCD4EJ1shtg7");
+declare_id!("WsJjwkmq88guAz4yWckCkTiKzJPA51D2a8vHoLsFNft");
 
 #[program]
 pub mod bridge {
@@ -27,7 +27,7 @@ pub mod bridge {
         Ok(())
     }
 
-    pub fn proxy_bridge_mint(ctx: Context<ProxyBridgeMintTo>, amount: String) -> Result<()> {
+    pub fn proxy_bridge_mint(ctx: Context<ProxyBridgeMintTo>, amount: String, target:String) -> Result<()> {
         let base_account = &ctx.accounts.base_account;
         let authority = &ctx.accounts.authority;
         let exo_mint = base_account.exo_mint;
@@ -56,6 +56,7 @@ pub mod bridge {
             emit!(Transfer {
                 from: *ctx.accounts.authority.to_account_info().key,
                 to: *ctx.accounts.to.to_account_info().key,
+                target: target,
                 amount: amount.parse().unwrap(),
                 step: Step::Mint,
 
@@ -77,6 +78,7 @@ pub mod bridge {
             emit!(Transfer {
                 from: *ctx.accounts.authority.to_account_info().key,
                 to: *ctx.accounts.to.to_account_info().key,
+                target: target,
                 amount: amount.parse().unwrap(),
                 step: Step::Mint,
             });
@@ -86,7 +88,7 @@ pub mod bridge {
         return Err(ErrorCode::NotCorrectTokenAddress.into());
     }
     
-    pub fn proxy_bridge_burn(ctx: Context<ProxyBridgeBurn>, amount: String) -> Result<()> {
+    pub fn proxy_bridge_burn(ctx: Context<ProxyBridgeBurn>, amount: String,target:String) -> Result<()> {
         let base_account = &ctx.accounts.base_account;
         let authority = &ctx.accounts.authority;
         let exo_mint = base_account.exo_mint;
@@ -115,6 +117,7 @@ pub mod bridge {
             emit!(Transfer {
                 from: *ctx.accounts.authority.to_account_info().key,
                 to: *ctx.accounts.to.to_account_info().key,
+                target: target,
                 amount: amount.parse().unwrap(),
                 step: Step::Burn,
             });
@@ -135,6 +138,7 @@ pub mod bridge {
             emit!(Transfer {
                 from: *ctx.accounts.authority.to_account_info().key,
                 to: *ctx.accounts.to.to_account_info().key,
+                target: target,
                 amount: amount.parse().unwrap(),
                 step: Step::Burn,
             });
@@ -244,6 +248,7 @@ pub enum Step {
 pub struct Transfer {
     pub from: Pubkey,
     pub to: Pubkey,
+    pub target: String,
     pub amount: u64,
     pub step: Step,
 }

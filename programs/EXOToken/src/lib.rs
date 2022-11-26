@@ -3,7 +3,7 @@ use anchor_spl::token::{self, Burn, MintTo, SetAuthority, Transfer};
 
 pub mod state;
 
-declare_id!("FuGGF8A47crNmdmAsQ2nfRm1BMGLCYtsbmG1bmaUitgW");
+declare_id!("Hq8c9YaMAFTJpfnAQjJat3aaXpaBF78EdesAgxfTqWpi");
 
 use state::*;
 

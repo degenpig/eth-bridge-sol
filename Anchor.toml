@@ -1,0 +1,17 @@
+[features]
+seeds = false
+[programs.devnet]
+staking_reward = "BAeLrCEWmMtB4yMddmcryMGuHMuTfRVuftmJkDspXRbV"
+gcred_token = "8TtckPi4UiCGeCAiErSHzSE9afMuURWuaLEM9T5hovxK"
+exo_token = "Hq8c9YaMAFTJpfnAQjJat3aaXpaBF78EdesAgxfTqWpi"
+bridge = "WsJjwkmq88guAz4yWckCkTiKzJPA51D2a8vHoLsFNft"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "/home/eric/.config/solana/id.json"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/"

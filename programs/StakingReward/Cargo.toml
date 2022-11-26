@@ -1,0 +1,28 @@
+[package]
+name = "StakingReward"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "staking_reward"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[profile.release]
+overflow-checks = true
+
+[dependencies]
+anchor-spl = "0.25.0"
+anchor-lang = {version = "0.25.0", features = ["init-if-needed"]}
+spl-token = { version = "3.1.1", features = ["no-entrypoint"] }
+EXOToken = { path = "../EXOToken", features = ["cpi"]}
+GCREDToken = { path = "../GCREDToken", features = ["cpi"]}
+
+
